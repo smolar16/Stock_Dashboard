@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Giełdowy</title>
+    <!-- Podłączenie arkusza stylów CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <!-- Logo strony -->
+        <a href="/">
+            <img id="logo" src="{{ url_for('static', filename='Logo.png') }}" alt="Logo">
+        </a>
+    </header>
+    <div id="wrapper">
+        <!-- Sidebar / Menu -->
+        <aside id="sidebar">
+            <nav>
+                <!-- Nagłówek "Wykresy" -->
+                <h3>Wykresy</h3>
+                <ul>
+                    <!-- Linki do wykresów WIG 20, mWIG 40 i sWIG 80 -->
+                    <li><a href="/wig20">WIG 20</a></li>
+                    <li><a href="/mwig40">mWIG 40</a></li>
+                    <li><a href="/swig80">sWIG 80</a></li>
+                    <!-- Link do strony ze spółkami -->
+                    <li><a href="/company_chart">Spółki</a></li>
+                </ul>
+                <!-- Nagłówek "Komponenty" -->
+                <h3>Komponenty</h3>
+                <ul>
+                    <!-- Linki do komponentów WIG 20, mWIG 40 i sWIG 80 -->
+                    <li><a href="/component/wig20">WIG 20</a></li>
+                    <li><a href="/component/mwig40">mWIG 40</a></li>
+                    <li><a href="/component/swig80">sWIG 80</a></li>
+                </ul>
+                <!-- Nagłówek "Symulacja Monte Carlo" -->
+                <h3>Twój Portfel</h3>
+                <ul>
+                    <!-- Link do "Symulacja Monte Carlo" -->
+                    <li><a href="{{ url_for('monte_carlo') }}">Symulacja Monte Carlo</a></li>
+                </ul>
+                <!-- Nagłówek "Aktualizacja" -->
+                <h3>Aktualizacja</h3>
+                <ul>
+                    <!-- Link do aktualizacji danych -->
+                    <li><a href="{{ url_for('update_data') }}">Aktualizacja danych</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <!-- Główna zawartość strony -->
+        <div id="content">
+            {% if error_message %}
+                <!-- Wyświetlenie komunikatu o błędzie, jeśli istnieje -->
+                <div class="error-message">{{ error_message }}</div>
+            {% else %}
+                {% if wig20_html %}
+                    <!-- Wyświetlenie danych w formie tabeli HTML, jeśli dane istnieją -->
+                    <h2>{{ title }}</h2>
+                    {{ wig20_html | safe }}
+                {% else %}
+                    <!-- Wyświetlenie wykresu i informacji o zakresie dat i stopie zwrotu -->
+                    <img src="data:image/png;base64,{{ img_data }}" alt="Wykres">
+                    <p><strong>Zakres dat:</strong> od {{ start_date }} do {{ end_date }}</p>
+                    <p><strong>Stopa zwrotu:</strong> <span class="{{ 'positive' if return_rate >= 0 else 'negative' }}">{{ return_rate | round(2) }}%</span> (Obliczenia: {{ return_rate_text }})</p>
+                {% endif %}
+            {% endif %}
+            <!-- Formularz do wyboru zakresu dat -->
+            <form action="{{ request.path }}" method="post">
+                <label for="start_date">Data początkowa:</label>
+                <input type="date" id="start_date" name="start_date" required>
+                <label for="end_date">Data końcowa:</label>
+                <input type="date" id="end_date" name="end_date" required>
+                <button type="submit">Pokaż wykres</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

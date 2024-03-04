@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Giełdowy</title>
+    <!-- Podłączenie arkusza stylów CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <!-- Logo strony -->
+        <a href="/">
+            <img id="logo" src="{{ url_for('static', filename='Logo.png') }}" alt="Logo">
+        </a>
+    </header>
+    <div id="wrapper">
+        <!-- Sidebar / Menu -->
+        <aside id="sidebar">
+            <nav>
+                <!-- Nagłówek "Wykresy" -->
+                <h3>Wykresy</h3>
+                <ul>
+                    <!-- Linki do wykresów WIG 20, mWIG 40 i sWIG 80 -->
+                    <li><a href="/wig20">WIG 20</a></li>
+                    <li><a href="/mwig40">mWIG 40</a></li>
+                    <li><a href="/swig80">sWIG 80</a></li>
+                    <!-- Link do strony ze spółkami -->
+                    <li><a href="/company_chart">Spółki</a></li>
+                </ul>
+                <!-- Nagłówek "Komponenty" -->
+                <h3>Komponenty</h3>
+                <ul>
+                    <!-- Linki do komponentów WIG 20, mWIG 40 i sWIG 80 -->
+                    <li><a href="/component/wig20">WIG 20</a></li>
+                    <li><a href="/component/mwig40">mWIG 40</a></li>
+                    <li><a href="/component/swig80">sWIG 80</a></li>
+                </ul>
+                <!-- Nagłówek "Symulacja Monte Carlo" -->
+                <h3>Twój Portfel</h3>
+                <ul>
+                    <!-- Link do "Symulacja Monte Carlo" -->
+                    <li><a href="{{ url_for('monte_carlo') }}">Symulacja Monte Carlo</a></li>
+                </ul>
+                <!-- Nagłówek "Aktualizacja" -->
+                <h3>Aktualizacja</h3>
+                <ul>
+                    <!-- Link do aktualizacji danych -->
+                    <li><a href="{{ url_for('update_data') }}">Aktualizacja danych</a></li>
+                </ul>
+            </nav>
+        </aside>
+                <!-- Główna zawartość strony -->
+        <div id="content">
+            <!-- Wyświetlenie tytułu strony -->
+            <h2>{{ title }}</h2>
+            {% if data_html %}
+                <!-- Wyświetlenie danych w formie tabeli HTML, jeśli dane są dostępne -->
+                {{ data_html | safe }}
+            {% else %}
+                <!-- Komunikat, jeśli brak danych do wyświetlenia -->
+                <p>Dane nie zostały załadowane. Dokonaj aktualizacji danych.</p>
+            {% endif %}
+        </div>
+    </div>
+
+</body>
+</html>

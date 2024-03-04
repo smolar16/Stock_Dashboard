@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Giełdowy</title>
+    <!-- Podłączenie arkusza stylów CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <!-- Logo strony -->
+        <a href="/">
+            <img id="logo" src="{{ url_for('static', filename='Logo.png') }}" alt="Logo">
+        </a>
+    </header>
+    <div id="wrapper">
+        <!-- Sidebar / Menu -->
+        <aside id="sidebar">
+            <nav>
+                <!-- Nagłówek "Wykresy" -->
+                <h3>Wykresy</h3>
+                <ul>
+                    <!-- Linki do wykresów WIG 20, mWIG 40 i sWIG 80 -->
+                    <li><a href="/wig20">WIG 20</a></li>
+                    <li><a href="/mwig40">mWIG 40</a></li>
+                    <li><a href="/swig80">sWIG 80</a></li>
+                    <!-- Link do strony ze spółkami -->
+                    <li><a href="/company_chart">Spółki</a></li>
+                </ul>
+                <!-- Nagłówek "Komponenty" -->
+                <h3>Komponenty</h3>
+                <ul>
+                    <!-- Linki do komponentów WIG 20, mWIG 40 i sWIG 80 -->
+                    <li><a href="/component/wig20">WIG 20</a></li>
+                    <li><a href="/component/mwig40">mWIG 40</a></li>
+                    <li><a href="/component/swig80">sWIG 80</a></li>
+                </ul>
+                <!-- Nagłówek "Symulacja Monte Carlo" -->
+                <h3>Twój Portfel</h3>
+                <ul>
+                    <!-- Link do "Symulacja Monte Carlo" -->
+                    <li><a href="{{ url_for('monte_carlo') }}">Symulacja Monte Carlo</a></li>
+                </ul>
+
+                <!-- Nagłówek "Aktualizacja" -->
+                <h3>Aktualizacja</h3>
+                <ul>
+                    <!-- Link do aktualizacji danych -->
+                    <li><a href="{{ url_for('update_data') }}">Aktualizacja danych</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <!-- Główna zawartość strony -->
+        <div id="content">
+            <h1>Symulacja Monte Carlo dla Portfela Akcji</h1>
+            <!-- Wyświetlanie komunikatu o błędzie -->
+            {% if error %}
+                <p style="color: red;">{{ error }}</p>
+            {% endif %}
+            <!-- Formularz do wprowadzania danych do symulacji Monte Carlo -->
+            <form method="post" action="/monte_carlo">
+                <!-- Pola do wprowadzania danych -->
+                <label for="stocks">Tickery spółek (np. DNP.PL, CDR.PL):</label><br>
+                <input type="text" id="stocks" name="stocks" required><br><br>
+                <label for="weights">Wagi spółek w porfelu (np. 0.5, 0.5):</label><br>
+                <input type="text" id="weights" name="weights" required><br><br>
+                <label for="start_date">Początek obserwacji zmienności (YYYY-MM-DD):</label><br>
+                <input type="date" id="start_date" name="start_date" required><br><br>
+                <label for="end_date">Koniec obserwacji zmienności (YYYY-MM-DD):</label><br>
+                <input type="date" id="end_date" name="end_date" required><br><br>
+                <label for="num_sims">Liczba symulacji:</label><br>
+                <input type="number" id="num_sims" name="num_sims" required><br><br>
+                <label for="time_horizon">Horyzont czasowy (dni):</label><br>
+                <input type="number" id="time_horizon" name="time_horizon" required><br><br>
+                <label for="initial_investment">Wartość początkowa Portfela:</label><br>
+                <input type="number" id="initial_investment" name="initial_investment" required><br><br>
+                <input type="submit" value="Run Simulation">
+            </form>
+            <!-- Wyświetlanue wyników symulacji, jeśli są dostępne -->
+            {% if plot_url %}
+                <img src="data:image/png;base64,{{ plot_url }}" alt="Monte Carlo Simulation">
+                <p><strong> Oczekiwana wartość Portfela: </strong> {{ expected_value }} PLN</p>
+                <p><strong>Stopa zwrotu:</strong> <span class="{{ 'positive' if return_rate >= 0 else 'negative' }}">{{ return_rate | round(2) }}%</span>
+                {% if stocks_weights %}
+                    <p style="text-align: center;"><strong>Komponenty Portfela:</strong></p>
+                    <ul style="list-style-type: none; text-align: center; padding: 0;">
+                    {% for item in stocks_weights %}
+                        <li>{{ item.stock }}: {{ item.weight }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+</body>
+</html>

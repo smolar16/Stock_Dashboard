@@ -1,0 +1,169 @@
+/* style.css */
+
+/* Resetowanie domyślnych stylów dla body */
+body {
+    font-family: Arial, sans-serif; /* Ustal czcionkę i rodzaj czcionki dla całej strony */
+    margin: 0; /* Usuń marginesy naokoło strony */
+    padding: 0; /* Usuń wewnętrzny padding dla body */
+    display: flex; /* Ustawienie kontenera na flexbox */
+    flex-direction: column; /* Ustawienie flexbox w kierunku kolumny */
+    background-color: #ffffff; /* Białe tło dla całej strony */
+}
+
+/* Styl dla nagłówka */
+header {
+    width: 100%; /* Szerokość nagłówka na 100% szerokości strony */
+    padding: 0;
+    box-sizing: border-box; /* Ustalanie boksowego modelu pudełka */
+}
+
+/* Styl dla logo */
+#logo {
+    width: 100%; /* Logo rozciągnięte na całą długość strony */
+    height: 200px; /* Wysokość logo */
+}
+
+/* Styl dla wrappera (głównego kontenera) */
+#wrapper {
+    min-height: 100vh; /* 100% wysokości widoku */
+    display: flex; /* Ustawienie kontenera na flexbox */
+    flex-direction: row; /* Ustawienie flexbox w kierunku rzędu (poziomo) */
+    flex-grow: 1; /* Pozwala na zajęcie całej dostępnej wysokości */
+}
+
+/* Styl dla menu bocznego (sidebar) */
+#sidebar {
+    background-color: #eeeeee; /* Tło dla menu bocznego */
+    padding: 20px; /* Wewnętrzny padding */
+    width: 200px; /* Szerokość menu */
+    box-sizing: border-box; /* Ustalanie boksowego modelu pudełka */
+    flex-shrink: 0; /* Menu nie będzie się zmniejszać, nie będzie elastyczne */
+}
+
+/* Styl dla nawigacji w menu bocznym */
+#sidebar nav ul {
+    list-style-type: none; /* Usunięcie domyślnego stylu listy */
+    padding: 0;
+    margin: 0;
+}
+
+#sidebar nav ul li {
+    padding: 10px; /* Wewnętrzny padding elementów listy */
+    margin-bottom: 10px; /* Margines na dole elementów listy */
+    background-color: #ddd; /* Tło elementów listy */
+    cursor: pointer; /* Kursor zmienia się na wskaźnik na hoverze */
+}
+
+#sidebar nav ul li:hover {
+    background-color: #ccc; /* Zmiana koloru tła na hoverze */
+}
+
+
+
+
+/* Styl dla głównej zawartości strony */
+#content {
+    flex-grow: 1; /* Pozwala na zajęcie całej dostępnej wysokości */
+    padding: 20px; /* Wewnętrzny padding */
+    box-sizing: border-box; /* Ustalanie boksowego modelu pudełka */
+    text-align: center; /* Wyrównanie tekstu do środka */
+}
+
+
+/* Styl dla obrazów w głównej zawartości */
+#content img {
+    max-width: 100%; /* Szerokość obrazu dostosowuje się do szerokości kontenera */
+    height: auto; /* Automatyczna wysokość, aby zachować proporcje */
+    margin-top: 20px; /* Dodatkowy margines na górze */
+}
+
+/* Styl dla elementów oznaczonych jako 'strong' (pogrubione) */
+strong {
+    font-weight: bold; /* Ustalanie pogrubienia */
+}
+
+/* Styl dla tekstu o klasie 'positive' (kolor zielony) */
+.positive {
+    color: green; /* Zielony kolor tekstu */
+}
+
+/* Styl dla tekstu o klasie 'negative' (kolor czerwony) */
+.negative {
+    color: red; /* Czerwony kolor tekstu */
+}
+
+/* Styl dla nagłówków w nawigacji */
+nav h3 {
+    color: red; /* Czerwony kolor tekstu */
+    font-size: 1.2em; /* Rozmiar czcionki */
+    padding: 5px 0; /* Wewnętrzny padding (góra i dół) */
+    border-bottom: 1px solid red; /* Linia na dole nagłówka */
+}
+
+/* Styl dla listy w nawigacji */
+nav ul {
+    padding-left: 0; /* Usunięcie domyślnego wcięcia listy */
+    list-style: none; /* Usunięcie domyślnego stylu listy */
+}
+
+/* Styl dla elementów listy w nawigacji */
+nav ul li a {
+    text-decoration: none; /* Usunięcie podkreślenia linku */
+    color: black; /* Czarny kolor tekstu */
+    display: block; /* Elementy listy jako bloki */
+    padding: 5px 10px; /* Wewnętrzny padding (góra i dół, lewo i prawo) */
+}
+
+/* Styl dla linków w nawigacji po najechaniu kursorem */
+nav ul li a:hover {
+    background-color: #ddd; /* Zmiana koloru tła na hoverze */
+}
+
+/* Styl dla aktualnie aktywnego linku w nawigacji */
+nav ul li a.active {
+    background-color: #bbb; /* Tło dla aktywnego linku */
+}
+
+/* Styl dla tabeli */
+.table {
+    width: 100%; /* Szerokość tabeli na 100% */
+    border-collapse: collapse; /* Usunięcie odstępów między komórkami */
+}
+
+/* Styl dla co drugiego wiersza tabeli */
+.table-striped tr:nth-of-type(odd) {
+    background-color: #f9f9f9; /* Kolor tła co drugiego wiersza */
+}
+
+/* Styl dla nagłówków tabeli */
+.table-striped th {
+    background-color: #f2f2f2; /* Kolor tła nagłówków tabeli */
+}
+
+/* Styl dla nagłówków i komórek tabeli */
+.table th, .table td {
+    padding: 8px; /* Wewnętrzny padding */
+    text-align: left; /* Wyrównanie tekstu do lewej */
+    border: 1px solid #ddd; /* Ramka komórek */
+}
+
+/* Styl dla tabeli danych */
+.data {
+    width: 100%; /* Szerokość tabeli na 100% */
+    border-collapse: collapse; /* Usunięcie odstępów między komórkami */
+}
+
+/* Styl dla nagłówków i komórek tabeli danych */
+.data, .data th, .data td {
+    border: 1px solid #ddd; /* Ramka komórek */
+}
+
+.data th, .data td {
+    padding: 8px; /* Wewnętrzny padding */
+    text-align: left; /* Wyrównanie tekstu do lewej */
+}
+
+/* Styl dla nagłówków tabeli danych */
+.data th {
+    background-color: #f2f2f2; /* Kolor tła nagłówków tabeli */
+}
