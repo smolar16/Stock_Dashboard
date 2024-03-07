@@ -416,4 +416,4 @@ def component_swig80():
         return render_template('component.html', message='Dane nie zostały załadowane. Dokonaj aktualizacji danych.')
 
 if __name__ == '__main__':
-        app.run(debug=True)
+        app.run()
